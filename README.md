@@ -1,44 +1,69 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+yet-another-electron-react-typescript-boilerplate
+=================================================
 
-## Available Scripts
+Yet another Electron-React-TypeScript boilerplate with [Create React App](https://create-react-app.dev) and [Electron Builder](https://www.electron.build). No eject is required.
 
-In the project directory, you can run:
 
-### `npm start`
+Steps
+-----
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+#### 1. Check Node.js version used in Electron
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+```
+# As of 9/23/2019 at https://electronjs.org
+Electron  6.0.10
+Node      12.4.0
+```
 
-### `npm test`
+#### 2. Generate a TypeScript project with [Create React App](https://github.com/facebook/create-react-app)
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```
+npx create-react-app app --typescript
+```
 
-### `npm run build`
+[[Initial Code](https://github.com/yhirose/yet-another-electron-react-typescript-boilerplate/tree/89d57b813b146e5e7de1ddf3c9630864f4cf4218)]
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+#### 3. Setup development build environment
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+```
+yarn add electron concurrently wait-on -D
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+[[Code Changes](https://github.com/yhirose/yet-another-electron-react-typescript-boilerplate/commit/d7c05fbefb7c2a3b977920062a450140e7dadde2?diff=unified)]
 
-### `npm run eject`
+The following script will invoke development build:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```
+yarn electron:serve
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+#### 4. Add main process hot-reloading and DevTools support
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+```
+yarn add electron-reload electron-devtools-installer @types/electron-devtools-installer
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+[[Code Changes](https://github.com/yhirose/yet-another-electron-react-typescript-boilerplate/commit/521a1aad6cf43310d0f5c71df438910b34fc8db9?diff=unified)]
 
-## Learn More
+Any changes made in main process code will take effect immediately.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+#### 6. Added `preload` script
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Render process can access features in Main process safely via `preload` script.
+
+[[Code Changes](https://github.com/yhirose/yet-another-electron-react-typescript-boilerplate/commit/870e9f5b0a44fb94cd8b8465b03a573e079614fd)]
+
+#### 7. Setup production package environment
+
+```
+yarn add electron-builder move-cli rimraf -D
+yarn add electron-is-dev
+```
+
+[[Code Changes](https://github.com/yhirose/yet-another-electron-react-typescript-boilerplate/commit/62504f8e025332c595d1045ed92042fd53afb762)]
+
+The following script will make distribution packages:
+
+```
+yarn electron:pack
+```
