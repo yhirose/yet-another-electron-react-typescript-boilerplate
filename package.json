@@ -1,6 +1,8 @@
 {
   "name": "app",
   "version": "0.1.0",
+  "description": "React-TypeScript-Electron boilerplate with Create React App and Electron Builder",
+  "author": "Your Name",
   "homepage": "./",
   "main": "dist/electron/main.js",
   "private": true,
@@ -11,6 +13,7 @@
     "@types/react": "16.9.2",
     "@types/react-dom": "16.9.0",
     "electron-devtools-installer": "^2.2.4",
+    "electron-is-dev": "^1.1.0",
     "electron-reload": "^1.5.0",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
@@ -19,10 +22,26 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "react-scripts build && rimraf dist/electron-render && move-cli build dist/electron-render",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "electron:serve": "concurrently \"BROWSER=none yarn start\" \"tsc -p ./electron -w\" \"wait-on http://localhost:3000 && electron .\""
+    "electron:serve": "concurrently \"BROWSER=none yarn start\" \"tsc -p ./electron -w\" \"wait-on http://localhost:3000 && electron .\"",
+    "electron:pack": "tsc -p ./electron && yarn build && electron-builder",
+    "postinstall": "electron-builder install-app-deps"
+  },
+  "build": {
+    "appId": "com.your.app",
+    "mac": {
+      "category": "your.app.category.type",
+      "icon": "electron/assets/electron.icns"
+    },
+    "productName": "DemoApp",
+    "copyright": "Copyright © 2019 Your Name",
+    "extends": null,
+    "files": [
+      "dist/electron/**",
+      "dist/electron-render/**"
+    ]
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -42,6 +61,9 @@
   "devDependencies": {
     "concurrently": "^4.1.2",
     "electron": "^6.0.10",
+    "electron-builder": "^21.2.0",
+    "move-cli": "^1.2.1",
+    "rimraf": "^3.0.0",
     "wait-on": "^3.3.0"
   }
 }
