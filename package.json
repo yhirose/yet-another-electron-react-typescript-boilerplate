@@ -1,6 +1,8 @@
 {
   "name": "app",
   "version": "0.1.0",
+  "homepage": "./",
+  "main": "dist/electron/main.js",
   "private": true,
   "dependencies": {
     "@types/jest": "24.0.18",
@@ -16,7 +18,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "electron:serve": "concurrently \"BROWSER=none yarn start\" \"tsc -p ./electron -w\" \"wait-on http://localhost:3000 && electron .\""
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -32,5 +35,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "concurrently": "^4.1.2",
+    "electron": "^6.0.10",
+    "wait-on": "^3.3.0"
   }
 }
