@@ -11,7 +11,8 @@ function createWindow() {
     webPreferences: {
       nodeIntegration: false,
       nodeIntegrationInWorker: false,
-      contextIsolation: false // NOTE: It's OK, since we use local resources/assets on production.)
+      contextIsolation: false, // NOTE: It's OK, since we use local resources/assets on production.
+      preload: path.resolve(path.join(__dirname, 'preload.js'))
     }
   });
 
