@@ -1,4 +1,4 @@
-import { app, ipcMain, BrowserWindow, Menu } from 'electron';
+import { app, BrowserWindow } from 'electron';
 import * as path from 'path';
 import * as isDev from 'electron-is-dev';
 import installExtension, { REACT_DEVELOPER_TOOLS } from "electron-devtools-installer";
@@ -22,12 +22,13 @@ function createWindow() {
   if (isDev) {
     mainWindow.loadURL('http://localhost:3000/index.html');
   } else {
-    mainWindow.loadURL(`file://${__dirname}/../electron-render/index.html`);
+    mainWindow.loadURL(`file://${__dirname}/../index.html`);
   }
 
   if (isDev) {
     require('electron-reload')(__dirname, {
       electron: path.join(__dirname, '..', '..', 'node_modules', '.bin', 'electron'),
+      forceHardReset: true,
       hardResetMethod: 'exit'
     });
   }

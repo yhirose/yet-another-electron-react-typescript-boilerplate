@@ -10,9 +10,9 @@ Steps
 #### 1. Check Node.js version used in Electron
 
 ```
-# As of 9/23/2019 at https://electronjs.org
-Electron  6.0.10
-Node      12.4.0
+# As of 6/21/2020 at https://electronjs.org
+Electron  9.0.4
+Node      12.4.1
 ```
 
 #### 2. Generate a TypeScript project with [Create React App](https://github.com/facebook/create-react-app)
@@ -56,7 +56,7 @@ Render process can access features in Main process safely via `preload` script.
 #### 7. Setup production package environment
 
 ```
-yarn add electron-builder move-cli rimraf -D
+yarn add -D electron-builder
 yarn add electron-is-dev
 ```
 
